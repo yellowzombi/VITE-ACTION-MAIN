@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ala
+  name: vite-action-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ala
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: ala
+    spec:
+      containers:
+        - image: asia-northeast1-docker.pkg.dev/engaged-carving-424707-n9/vite-action-repo/vite-action:v1
+          name: vite-action
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: vite-action
